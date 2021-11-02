@@ -1,0 +1,33 @@
+{
+    "twitter": {
+        "token": "TWITTER_TOKEN",
+        "secret": "TWITTER_SECRET",
+        "callback": "https://YOUR_GATEWAY_URL/auth/twitter/callback"
+    },
+    "github": {
+        "token": "GITHUB_TOKEN",
+        "secret": "GITHUB_SECRET",
+        "callback": "https://YOUR_GATEWAY_URL/auth/github/callback"
+    },
+    "google": {
+        "token": "GOOGLE_TOKEN",
+        "secret": "GOOGLE_SECRET",
+        "callback": "https://YOUR_GATEWAY_URL/auth/google/callback"
+    },
+    "phone": {
+        "token": "TWILIO_TOKEN",
+        "secret": "TWILIO_SECRET",
+        "name": "TWILIO_GATEWAY_NAME"
+    },
+    "linkedin": {
+        "token": "LINKEDIN_TOKEN",
+        "secret": "LINKEDIN_SECRE",
+        "callback": "https://YOUR_GATEWAY_URL/auth/linkedin/callback"
+    },
+    "email": {
+        "token": "MAILGUN_TOKEN",
+        "domain": "MAILGUN_DOMAIN",
+        "name": "SENDER_NAME",
+        "email": "SENDER_EMAIL"
+    }
+}

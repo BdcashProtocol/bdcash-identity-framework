@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <title>BDCashID - Connect identities to your address</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <!-- External CSS libraries -->
+    <link type="text/css" rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="assets/fonts/font-awesome/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="assets/fonts/flaticon/font/flaticon.css">
+
+    <!-- Favicon icon -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" >
+
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,800&display=swap" rel="stylesheet">
+
+    <!-- Custom Stylesheet -->
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" id="style_sheet" href="assets/css/skins/default.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head> 
+<body>
+<div id="app">
+    <div class="login-7 tab-box">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 text-align:center col-pad-0 bg-img" v-if="!address">
+                    <div class="logo">
+                        <a href="/">
+                            <img src="assets/logo.png" alt="logo">
+                        </a>
+                    </div>
+                    <div class="informeson text-center" style="font-family: 'Work Sans'!important">
+                        <h1 style="margin-bottom:0;">Welcome on BDCashID Auth</h1>
+                        <p style="font-weight: normal;">
+                            With this service you'll be able to link one or more third party identities to your Lyra address.<br>
+                            The identity payload will be encrypted with the same password of your address.<br>
+                            You must save the updated version on your phone or on your PC downloading again the .sid file.<br>
+                            <span style="color:#f00">No one can access your identity payloads, so save them in a safe place.</span><br>
+                            To start select a .sid file from your system or enter using the BDCashID extension.<br>
+                            <input type="file"
+                                style="display:inline-block; overflow:hidden"
+                                placeholder="Just drag and drop here or select a .sid file"
+                                drop-placeholder="Drop file here..."
+                                v-on:change="loadWalletFromFile"
+                                class="text-left mb-3 mt-3"
+                            />
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-pad-0 bg-color-7" v-if="address">
+                    <div class="logo" style="position:fixed; top:20px; left:20px;">
+                        <a href="/"></a>
+                            <img src="assets/logo_dark.png" alt="logo">
+                        </a>
+                    </div>
+                    <div style="position:fixed; top:20px; width:30px; right:35px; font-size:18px; cursor:pointer;" onClick="ScryptaCore.forgetKey(); location.reload()">
+                        EXIT
+                    </div>
+                    <div class="login-inner-form" v-if="!success">
+                        <div class="details">
+                            Create or renew identity for<br><span style="font-size:12px">{{ address }}</span><br><br>
+                            <form id="verificationForm" :action="'/auth/' + provider" method="GET">
+                                <div class="form-group">
+                                    <select v-model="provider" class="input-text" placeholder="Select a provider..">
+                                        <option value="">Select a provider</option>
+                                        <option v-for="provider in providers" :value="provider">{{ provider.toUpperCase() }}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" v-if="provider === 'email' && showEmailVerification === false">
+                                    <input type="email" v-model="email" class="input-text" placeholder="Insert E-Mail">
+                                </div>
+                                <div class="form-group" v-if="provider === 'phone' && showSmsVerification === false">
+                                    <input type="text" v-model="phone" class="input-text" placeholder="Insert Phone number">
+                                    <br><small>Insert the country prefix before (ex +393331122333)</small>
+                                </div>
+                                <div class="form-group" v-if="provider === 'phone' && showSmsVerification === true">
+                                    <input type="text" v-model="smsverification" class="input-text" placeholder="Insert code received by SMS">
+                                </div>
+                                <div class="form-group" v-if="provider === 'email' && showEmailVerification === true">
+                                    <input type="text" v-model="emailverification" class="input-text" placeholder="Insert code received by e-mail">
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <div v-if="provider !== 'phone' && provider !== 'email'" v-on:click="submitVerification()" class="btn-theme btn-theme-custom">Start verification</div>
+                                        <div v-if="provider === 'phone' && showSmsVerification === false" v-on:click="sendSMS()" class="btn-theme btn-theme-custom">Send verification SMS</div>
+                                        <div v-if="provider === 'phone' && showSmsVerification === true" v-on:click="verifySMS()" class="btn-theme btn-theme-custom">Verify SMS</div>
+                                        <div v-if="provider === 'email' && showEmailVerification === false" v-on:click="sendEmail()" class="btn-theme btn-theme-custom">Send verification e-mail</div>
+                                        <div v-if="provider === 'email' && showEmailVerification === true" v-on:click="verifyEMail()" class="btn-theme btn-theme-custom">Verify e-mail</div>
+                                        <br><hr><br>
+                                        Show linked identities for<br><span style="font-size:12px">{{ address }}</span><br><br>
+                                        <div v-if="!showQRCanvas" class="form-group">
+                                            <input type="password" v-model="unlockPwd" class="input-text text-center" placeholder="Insert wallet password">
+                                        </div>
+                                        <div v-if="!showQRCanvas" v-on:click="showQR()" class="btn-theme btn-theme-custom" style="background:blue!important;">Search on the Blockchain</div>
+                                        <div v-if="showQRCanvas">
+                                            This is your sharable identity payload.<br>
+                                            <strong>Share it only with trusted parties.</strong><br><br>
+                                            Each entry will be checked with the blockchain and merged with your .sid file.<br>
+                                            If one or more entry can't be matched with blockchain signatures it will not shown and it will not considered valid.<br><br>
+                                        </div>
+                                        <img v-if="showQRCanvas" :src="public_qrcode" width="100%">
+                                        <div v-if="showQRCanvas" v-on:click="downloadSidFile()" class="btn-theme btn-theme-custom">Download .sid file</div>
+                                        <a id="downloadsid" style="display:none"></a>
+                                        <div v-for="id in linked" v-bind:key="id.refID">
+                                            <div v-on:click="revealID(id.refID)" style="border:1px solid #ccc; border-radius:5px; margin-top:20px; font-size:12px; padding:15px">
+                                                <strong>{{ id.refID }}</strong><br>{{ id.identity.username }}<br>
+                                                <span v-if="id.identity.id !== undefined">ID: {{ id.identity.id }}<br></span>
+                                                Written at block <strong>{{ id.block }}</strong><br>
+                                                {{ id.data.signature.substr(0,6) }} ... {{ id.data.signature.substr(-6) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!--login-form-->
+                    <div v-if="!updated">
+                        <div class="login-inner-form" v-if="success">
+                            Your {{ success.toUpperCase() }} account:<hr>
+                            Username: {{ payload.identity.username }}<br>
+                            <span v-if="payload.identity.id !== undefined">
+                                ID: {{ payload.identity.id }}<br><br>
+                            </span>
+                            <div class="form-group">
+                                <input type="password" v-model="unlockPwd" class="input-text text-center" placeholder="Insert wallet password">
+                            </div>
+                            <div v-on:click="writeIdentity()" v-if="!isWriting" class="btn-theme btn-theme-custom">Write identity's signature into the Blockchain</div>
+                            <div v-if="isWriting">
+                                {{ workingmessage }}
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="updated">
+                        <div class="login-inner-form text-center">
+                            <h4>Process completed!</h4>
+                            Now is time to download your updated .sid file and sync your app!<br>
+                            Please note, no one keeps your identity payload, only you can share it, these informations are not stored in any server.<br><br>
+                            <img :src="sync_qrcode" width="100%">
+                            <a id="downloadsid" style="display:none"></a>
+                            <div v-on:click="downloadSidFile()" class="btn-theme btn-theme-custom">Download .sid file</div><br>
+                            <a href="/">Go back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- External JS libraries -->
+<script src="assets/js/jquery-2.2.0.min.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+
+<!-- Custom JS Script -->
+<script src="./qrious.min.js"></script>
+<script src="./scryptacore.js"></script>
+<script src="./app.js"></script>
+
+</body>
+</html>

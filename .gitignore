@@ -1,0 +1,10 @@
+node_modules/
+.env
+providers.json
+_template
+phone/
+email/
+providers.online.json
+db/
+temp/*.pem
+temp/*.p7m
