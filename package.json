@@ -11,7 +11,7 @@
   "author": "BDCash Task Force",
   "license": "MIT",
   "dependencies": {
-    "@bdcash-protocol/core": "^1.0.3",
+    "@bdcash-protocol/core": "^1.0.2",
     "axios": "^0.19.2",
     "coinkey": "^3.0.0",
     "cookie-parser": "^1.4.5",
