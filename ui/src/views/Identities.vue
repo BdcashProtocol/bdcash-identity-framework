@@ -7,7 +7,7 @@
         <br>These are your <b>public</b> informations:
         <div style="border:1px solid #ccc; text-align:left; color:#000; border-radius:5px; margin-top:20px; font-size:12px; padding:15px">
             <v-gravatar :email="address" style="float:left; height:55px; margin-right:10px;" />
-            <strong>LYRA ADDRESS</strong><br>
+            <strong>BDCASH ADDRESS</strong><br>
             Created at block <strong>{{ first_tx.blockheight }}</strong><br>
             {{ address.substr(0,6) }}...{{ address.substr(-6) }}<br>
         </div>
@@ -18,7 +18,7 @@
           <br>These are your <b>private</b> informations, share it only with trusted parties:
           <div style="border:1px solid #ccc; text-align:left; color:#000; border-radius:5px; margin-top:20px; font-size:12px; padding:15px">
               <v-gravatar :email="address" style="float:left; height:55px; margin-right:10px;" />
-              <strong>LYRA ADDRESS</strong><br>
+              <strong>BDCASH ADDRESS</strong><br>
               Created at block <strong>{{ first_tx.blockheight }}</strong><br>
               {{ address.substr(0,6) }}...{{ address.substr(-6) }}<br>
           </div>
@@ -57,7 +57,7 @@
         <br>These are your <b>public</b> informations:
         <div style="border:1px solid #ccc; text-align:left; color:#000; border-radius:5px; margin-top:20px; font-size:12px; padding:15px">
             <v-gravatar :email="address" style="float:left; height:55px; margin-right:10px;" />
-            <strong>LYRA ADDRESS</strong><br>
+            <strong>BDCASH ADDRESS</strong><br>
             Created at block <strong>{{ first_tx.blockheight }}</strong><br>
             {{ address.substr(0,6) }}...{{ address.substr(-6) }}<br>
         </div>
@@ -84,7 +84,7 @@
 </template>
 
 <script>
-const ScryptaCore = require('@scrypta/core')
+const ScryptaCore = require('@bdcash-protocol/core')
 const axios = require('axios')
 const QRious = require('qrious')
 var zlib = require('zlib')
