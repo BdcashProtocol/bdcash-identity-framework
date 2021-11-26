@@ -58,14 +58,14 @@
           <div class="container" id="create" style="margin-top:50px;">
             <div class="card">
               <div style="padding: 50px 20px;">
-                <img src="/logo.png" whidth="120" height="120"><br>
+                <img src="/logo.png" whidth="300" height="300"><br>
                 <h1 class="title is-1">Identity Digital BDCash</h1><br><br>
                 <p>
                   Identity Digital BDCash is an SSI (Self Sovereign Identity) service which enable you to safely store and share your digital identity with third parties.<br>This service will never store your personal informations so please download your authenticated .sid files and store them safely.
                 </p>
                 <br />
                 <h2 class="subtitle">
-                  <br />You need a basic Scrypta Identity to enter the platform.<br>You can enter with an existing .sid file or create a new one.
+                  <br />You need a basic BDCash Identity to enter the platform.<br>You can enter with an existing .sid file or create a new one.
                   <br />
                   <br />Use <a href="https://donwload.bdcashprotocol.com/#extension" target="_blank">BDCASH wallet Extension</a> or <a v-on:click="showCreate">create a new wallet</a>.
                   <br />
@@ -82,7 +82,7 @@
             </div>
             <br />BDCash dApp Starter
             <a
-              href="https://github.com/BdcashProtocol/scrypta-dapp-starter"
+              href="https://github.com/BdcashProtocol/bdcash-dapp-starter"
               target="_blank"
             >open-source</a>.
             <br />
