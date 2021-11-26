@@ -5,7 +5,7 @@
       <div v-if="Object.keys(identities).length === 0 && !$route.params.address">
         <h1>Search an user's identity</h1><br>
         <p>Use this function to scan the blockchain and search for public identies.<br>If you need to know all the informations you've to ask directly to the user.</p><br><br>
-        <b-field label="Insert Lyra Address">
+        <b-field label="Insert BDCash Address">
           <b-input style="text-align:center" v-model="address"></b-input>
         </b-field>
         <b-button size="is-large" v-on:click="searchIdentities" type="is-primary">SEARCH</b-button>
@@ -15,7 +15,7 @@
         <br>These are your <b>public</b> informations:
         <div style="border:1px solid #ccc; text-align:left; color:#000; border-radius:5px; margin-top:20px; font-size:12px; padding:15px">
             <v-gravatar :email="address" style="float:left; height:55px; margin-right:10px;" />
-            <strong>LYRA ADDRESS</strong><br>
+            <strong>BDCASH ADDRESS</strong><br>
             Created at block <strong>{{ first_tx.blockheight }}</strong><br>
             {{ address.substr(0,6) }}...{{ address.substr(-6) }}<br>
         </div>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-const ScryptaCore = require('@scrypta/core')
+const ScryptaCore = require('@bdcash-protocol/core')
 const axios = require('axios')
 
 export default {
