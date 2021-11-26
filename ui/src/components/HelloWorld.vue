@@ -8,7 +8,7 @@
 
 
 <script>
-  let ScryptaCore = require('@scrypta/core')
+  let ScryptaCore = require('@bdcash-prptocol/core')
   
   export default {
     name: 'HelloWorld',
