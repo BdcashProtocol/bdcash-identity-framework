@@ -113,7 +113,7 @@
 </template>
 
 <script>
-const ScryptaCore = require('@scrypta/core')
+const ScryptaCore = require('@bdcash-protocol/core')
 const axios = require('axios')
 var zlib = require('zlib')
 var ethUtil = require('ethereumjs-util')
@@ -405,7 +405,7 @@ export default {
             })
           }else{
             app.$buefy.toast.open({
-              message: "You need at least 0.001 LYRA in your wallet!",
+              message: "You need at least 0.001 BDCASH in your wallet!",
               type: "is-danger"
             })
           }
