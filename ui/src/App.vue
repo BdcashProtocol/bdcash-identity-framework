@@ -25,12 +25,12 @@
         </template>
       </b-navbar>
       <router-view />
-      <hr />Scrypta Identity Framework is
+      <hr />BDCash Identity Framework is
       <a
-        href="https://github.com/scryptachain/scrypta-identity-framework"
+        href="https://github.com/BdcashProtocol/bdcash-identity-framework"
         target="_blank"
-      >open-source</a> project by
-      <a href="https://scrypta.foundation" target="_blank">Scrypta Foundation</a>.
+      >open-source</a> powered by
+      <a href="https://bdcashprotocol.com" target="_blank">BDCash Protocol</a>.
       <br />
       <br />
     </div>
@@ -58,16 +58,16 @@
           <div class="container" id="create" style="margin-top:50px;">
             <div class="card">
               <div style="padding: 50px 20px;">
-                <img src="/logo.png"><br>
-                <h1 class="title is-1">Scrypta Digital Identity Framework</h1><br><br>
+                <img src="/logo.png" whidth="120" height="120"><br>
+                <h1 class="title is-1">Identity Digital BDCash</h1><br><br>
                 <p>
-                  Scrypta Ditgital Identity Framework is an SSI (Self Sovereign Identity) service which enable you to safely store and share your digital identity with third parties.<br>This service will never store your personal informations so please download your authenticated .sid files and store them safely.
+                  Identity Digital BDCash is an SSI (Self Sovereign Identity) service which enable you to safely store and share your digital identity with third parties.<br>This service will never store your personal informations so please download your authenticated .sid files and store them safely.
                 </p>
                 <br />
                 <h2 class="subtitle">
                   <br />You need a basic Scrypta Identity to enter the platform.<br>You can enter with an existing .sid file or create a new one.
                   <br />
-                  <br />Use <a href="https://id.scryptachain.org/" target="_blank">Scrypta ID Extension</a> or <a v-on:click="showCreate">create a new wallet</a>.
+                  <br />Use <a href="https://donwload.bdcashprotocol.com/#extension" target="_blank">BDCASH wallet Extension</a> or <a v-on:click="showCreate">create a new wallet</a>.
                   <br />
                   <br />
                   <b-upload v-model="file" v-on:input="loadWalletFromFile" drag-drop>
@@ -80,12 +80,11 @@
                 </h2>
               </div>
             </div>
-            <br />Scrypta dApp Starter
+            <br />BDCash dApp Starter
             <a
-              href="https://github.com/scryptachain/scrypta-dapp-starter"
+              href="https://github.com/BdcashProtocol/scrypta-dapp-starter"
               target="_blank"
-            >open-source</a> project by
-            <a href="https://scrypta.foundation" target="_blank">Scrypta Foundation</a>.
+            >open-source</a>.
             <br />
             <br />
           </div>
@@ -138,7 +137,7 @@
 </template>
 
 <script>
-let ScryptaCore = require("@scrypta/core");
+let ScryptaCore = require("@bdcash-protocol/core");
 
 export default {
   data() {
@@ -305,11 +304,12 @@ export default {
   h1{ margin-bottom: -20px!important; padding-bottom: 0!important;}
   #nav {
     padding: 30px;
+    background: #000;
   }
 
   #nav a {
     font-weight: bold;
-    color: #2c3e50;
+    color: #fff;
   }
 
   #nav a.router-link-exact-active {
