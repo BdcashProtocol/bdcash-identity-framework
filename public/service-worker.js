@@ -17,7 +17,7 @@ importScripts(
   "/precache-manifest.3c21bf8cf388c1a1423f39a96b096a50.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "scrypta-id-framework-ui"});
+workbox.core.setCacheNameDetails({prefix: "bdcash-identity-framework-ui"});
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
