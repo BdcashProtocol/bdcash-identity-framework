@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-    <title>BDCashID - Connect identities to your address</title>
+    <title>ID BDCash - Connect identities to your address</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <!-- External CSS libraries -->
@@ -33,13 +33,13 @@
                         </a>
                     </div>
                     <div class="informeson text-center" style="font-family: 'Work Sans'!important">
-                        <h1 style="margin-bottom:0;">Welcome on BDCashID Auth</h1>
+                        <h1 style="margin-bottom:0;">Welcome on ID BDCash Auth</h1>
                         <p style="font-weight: normal;">
                             With this service you'll be able to link one or more third party identities to your Lyra address.<br>
                             The identity payload will be encrypted with the same password of your address.<br>
                             You must save the updated version on your phone or on your PC downloading again the .sid file.<br>
-                            <span style="color:#f00">No one can access your identity payloads, so save them in a safe place.</span><br>
-                            To start select a .sid file from your system or enter using the BDCashID extension.<br>
+                            <span style="color:rgb(255, 174, 0)">No one can access your identity payloads, so save them in a safe place.</span><br>
+                            To start select a .sid file from your system or enter using the ID BDCash extension.<br>
                             <input type="file"
                                 style="display:inline-block; overflow:hidden"
                                 placeholder="Just drag and drop here or select a .sid file"
@@ -94,7 +94,7 @@
                                         <div v-if="!showQRCanvas" class="form-group">
                                             <input type="password" v-model="unlockPwd" class="input-text text-center" placeholder="Insert wallet password">
                                         </div>
-                                        <div v-if="!showQRCanvas" v-on:click="showQR()" class="btn-theme btn-theme-custom" style="background:blue!important;">Search on the Blockchain</div>
+                                        <div v-if="!showQRCanvas" v-on:click="showQR()" class="btn-theme btn-theme-custom" style="background:rgb(255, 166, 0)!important;">Search on the Blockchain</div>
                                         <div v-if="showQRCanvas">
                                             This is your sharable identity payload.<br>
                                             <strong>Share it only with trusted parties.</strong><br><br>
