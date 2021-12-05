@@ -1,4 +1,4 @@
-var CoinKey = require('coinkey')
+var CoinKey = require('@bdcash-protocol/coinkey')
 const CryptoJS = require('crypto-js')
 const secp256k1 = require('secp256k1')
 

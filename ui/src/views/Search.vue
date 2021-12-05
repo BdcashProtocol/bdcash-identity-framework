@@ -20,7 +20,7 @@
             {{ address.substr(0,6) }}...{{ address.substr(-6) }}<br>
         </div>
         <div v-for="id in identities" v-bind:key="id.refID">
-            <a :href="'https://proof.scryptachain.org/#/uuid/' + id.uuid" target="_blank">
+            <a :href="'https://proof.bdcashprotocol.com/#/uuid/' + id.uuid" target="_blank">
               <div style="border:1px solid #ccc; text-align:left; color:#000; border-radius:5px; margin-top:20px; font-size:12px; padding:15px">
                   <img :src = "'/' + id.refID.toLowerCase() + '.png'" style="float:left; height:55px; margin-right:10px;" />
                   <strong>{{ id.refID }}</strong><br>
@@ -38,14 +38,14 @@
 </template>
 
 <script>
-const ScryptaCore = require('@bdcash-protocol/core')
+const BDCashCore = require('@bdcash-protocol/core')
 const axios = require('axios')
 
 export default {
   name: 'Home',
   data() {
     return {
-        scrypta: new ScryptaCore(true),
+        bdcash: new BDCashCore(true),
         backendURL: '',
         address: '',
         first_tx: {},
@@ -58,7 +58,7 @@ export default {
     },
     mounted(){
       const app = this
-      app.scrypta.staticnodes = true
+      app.bdcash.staticnodes = true
       if(app.$route.params.address !== undefined){
         app.isSearching = true
         app.address = app.$route.params.address
@@ -70,10 +70,10 @@ export default {
           const app = this
           if(app.address.length === 34){
             app.isSearching = true
-            let transactions = await app.scrypta.get('/transactions/' + app.address)
+            let transactions = await app.bdcash.get('/transactions/' + app.address)
             let last = transactions.data.length - 1
             app.first_tx = transactions.data[last]
-            app.scrypta.post('/read', {
+            app.bdcash.post('/read', {
               protocol: 'I://',
               address: app.address
             }).then(async result => {

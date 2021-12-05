@@ -1,7 +1,7 @@
 {
   "name": "bdcash-identity-framework",
   "version": "1.0.1",
-  "description": "BDCashID framework",
+  "description": "ID BDCash framework",
   "main": "id.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,9 +11,9 @@
   "author": "BDCash Task Force",
   "license": "MIT",
   "dependencies": {
-    "@bdcash-protocol/core": "^1.0.2",
+    "@bdcash-protocol/core": "^1.0.4",
     "axios": "^0.19.2",
-    "coinkey": "^3.0.0",
+    "@bdcash-protocol/coinkey": "^1.0.4",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "crypto-js": "^4.0.0",

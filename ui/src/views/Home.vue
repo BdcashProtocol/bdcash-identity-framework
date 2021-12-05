@@ -113,7 +113,7 @@
 </template>
 
 <script>
-const ScryptaCore = require('@bdcash-protocol/core')
+const BDCashCore = require('@bdcash-protocol/core')
 const axios = require('axios')
 var zlib = require('zlib')
 var ethUtil = require('ethereumjs-util')
@@ -125,7 +125,7 @@ export default {
   name: 'Home',
   data() {
     return {
-        scrypta: new ScryptaCore(true),
+        bdcash: new BDCashCore(true),
         backendURL: '',
         address: '',
         file: '',
@@ -171,7 +171,7 @@ export default {
     async mounted (){
       let url = document.URL
       const app = this
-      app.scrypta.staticnodes = true
+      app.bdcash.staticnodes = true
       let normalized = window.location.href
       let dot = normalized.split('?')
       app.backendURL = dot[0].replace(':8080/',':3000/').replace('/#/','').replace(':3000/',':3000').replace('.id/','.id')
@@ -297,7 +297,7 @@ export default {
           }
         },
         async checkUser(){
-          let user = await this.scrypta.returnDefaultIdentity()
+          let user = await this.bdcash.returnDefaultIdentity()
           if (user) {
             let split = user.split(':')
             this.address = split[0];
@@ -322,7 +322,7 @@ export default {
         },
         async writeIdentity(){
           const app = this
-          let balance = await app.scrypta.get('/balance/' + app.address)
+          let balance = await app.bdcash.get('/balance/' + app.address)
           app.isWriting = true
           if(balance.balance > 0.001){
             app.$buefy.dialog.prompt({
@@ -332,7 +332,7 @@ export default {
               },
               trapFocus: true,
               onConfirm: async password => {
-                let sid = await app.scrypta.readKey(password, app.encrypted_wallet);
+                let sid = await app.bdcash.readKey(password, app.encrypted_wallet);
                 if(sid !== false){
                   let private_key = sid.prv
                   app.workingmessage = 'Signing identity with private key...'
@@ -340,7 +340,7 @@ export default {
                     identity: app.payload.identity,
                     fingerprint: app.payload.fingerprint
                   }
-                  app.scrypta.signMessage(private_key, JSON.stringify(toStore)).then(async signed => {
+                  app.bdcash.signMessage(private_key, JSON.stringify(toStore)).then(async signed => {
                     if(sid.identity === undefined){
                       sid.identity = {}
                     }
@@ -348,9 +348,9 @@ export default {
                     sid.identity[app.success] = toStore
 
                     if(sid.identity[app.success] === toStore){
-                        await app.scrypta.buildWallet(password, app.address, sid, true)
-                        let newkey = await app.scrypta.returnIdentity(app.address)
-                        let confirm = await app.scrypta.readKey(password, newkey.wallet)
+                        await app.bdcash.buildWallet(password, app.address, sid, true)
+                        let newkey = await app.bdcash.returnIdentity(app.address)
+                        let confirm = await app.bdcash.readKey(password, newkey.wallet)
                         if(confirm.identity[app.success].fingerprint === toStore.fingerprint){
                           app.encrypted_wallet = newkey.wallet
                           localStorage.setItem('SID', newkey.wallet)
@@ -360,7 +360,7 @@ export default {
                             fingerprint: app.payload.fingerprint
                           }
                           app.workingmessage = 'Uploading data to the blockchain...'
-                          app.scrypta.write(app.encrypted_wallet, password, JSON.stringify(message), '', app.success.toUpperCase() , 'I://').then(res => {
+                          app.bdcash.write(app.encrypted_wallet, password, JSON.stringify(message), '', app.success.toUpperCase() , 'I://').then(res => {
                             if(res.uuid !== undefined && res.txs.length >= 1 && res.txs[0] !== null){
                               app.isWriting = false
                               app.workingmessage = 'Data written correctly.'
@@ -374,7 +374,7 @@ export default {
                                 var find = '/'
                                 var re = new RegExp(find, 'g')
                                 compressed = compressed.replace(re, '*')
-                                app.shareURL = 'https://me.scrypta.id/#/share/' + compressed
+                                app.shareURL = 'https://me.bdcash.id/#/share/' + compressed
                                 app.public_qrcode = compressed
                               },30)
                             }else{
@@ -420,9 +420,9 @@ export default {
               },
               trapFocus: true,
               onConfirm: async password => {
-                let sid = await app.scrypta.readKey(password, app.encrypted_wallet);
+                let sid = await app.bdcash.readKey(password, app.encrypted_wallet);
                 if(sid !== false){
-                  let payload = await app.scrypta.signMessage(sid.prv, app.eidnumber)
+                  let payload = await app.bdcash.signMessage(sid.prv, app.eidnumber)
                   var a = document.getElementById("downloadcid");
                   var file = new Blob(
                     [JSON.stringify(payload)],
@@ -482,7 +482,7 @@ export default {
 
           var text = JSON.stringify({
             timestamp: new Date().getTime(),
-            message: "SCRYPTAID-ETH VERIFICATION",
+            message: "ID BDCASH-ETH VERIFICATION",
             host: app.address,
             address: from
           })

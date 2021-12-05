@@ -8,23 +8,23 @@
 
 
 <script>
-  let ScryptaCore = require('@bdcash-prptocol/core')
+  let BDCashCore = require('@bdcash-prptocol/core')
   
   export default {
     name: 'HelloWorld',
     data(){ 
       return {
-        scrypta: new ScryptaCore(true),
+        bdcash: new BDCashCore(true),
         address: '',
         wallet: ''
       }
     },
     async mounted() {
       const app = this
-      app.wallet = await app.scrypta.returnDefaultIdentity()
+      app.wallet = await app.bdcash.returnDefaultIdentity()
       let SIDS = app.wallet.split(':')
       app.address = SIDS[0]
-      let identity = await app.scrypta.returnIdentity(app.address)
+      let identity = await app.bdcash.returnIdentity(app.address)
       if(identity.rsa === undefined){
         app.needsRSA = true
       }

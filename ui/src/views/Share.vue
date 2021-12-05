@@ -10,7 +10,7 @@
           {{ address.substr(0,6) }}...{{ address.substr(-6) }}<br>
       </div>
       <div v-for="id in linked" v-bind:key="id.refID">
-          <a :href="'https://proof.scryptachain.org/#/uuid/' + id.uuid" target="_blank">
+          <a :href="'https://proof.bdcashprotocol.com/#/uuid/' + id.uuid" target="_blank">
             <div style="border:1px solid #ccc; text-align: left; color:#000; border-radius:5px; margin-top:20px; font-size:12px; padding:15px">
                 <img :src = "'/' + id.refID.toLowerCase() + '.png'" style="float:left; height:75px; margin-right:10px;" />
                 <strong>{{ id.refID }}</strong>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-const ScryptaCore = require('@bdcash-protocol/core')
+const BDCashCore = require('@bdcash-protocol/core')
 const axios = require('axios')
 var zlib = require('zlib')
 
@@ -49,7 +49,7 @@ export default {
   name: 'Home',
   data() {
     return {
-        scrypta: new ScryptaCore(true),
+        bdcash: new BDCashCore(true),
         backendURL: '',
         address: '',
         file: '',
@@ -85,7 +85,7 @@ export default {
     },
     async mounted (){
       const app = this
-      app.scrypta.staticnodes = true
+      app.bdcash.staticnodes = true
       app.checkIdentity()
     },
     methods: {
@@ -97,10 +97,10 @@ export default {
           }
           let identity = JSON.parse(zlib.inflateSync(new Buffer(compressed, 'base64')).toString())
           app.address = identity.address
-          let transactions = await app.scrypta.get('/transactions/' + app.address)
+          let transactions = await app.bdcash.get('/transactions/' + app.address)
           let last = transactions.data.length - 1
           app.first_tx = transactions.data[last]
-          app.scrypta.post('/read', {
+          app.bdcash.post('/read', {
             protocol: 'I://',
             address: identity.address
           }).then(async result => {
@@ -117,7 +117,7 @@ export default {
               for(let y in identities){
                 let idB = identities[y]
                 //PUBLIC VERIFICATION
-                let verify = await app.scrypta.verifyMessage(identity.key, idB.data.signature, JSON.stringify(id))
+                let verify = await app.bdcash.verifyMessage(identity.key, idB.data.signature, JSON.stringify(id))
                 if(verify !== false && verify.address === identity.address){
                   idB.identity = id.identity
                   app.linked.push(idB)
@@ -135,7 +135,7 @@ export default {
             },
             trapFocus: true,
             onConfirm: async password => {
-              let encrypted = await app.scrypta.cryptData(app.$route.params.identity, password)
+              let encrypted = await app.bdcash.cryptData(app.$route.params.identity, password)
               var a = document.getElementById("downloadid");
               var file = new Blob(
                 [encrypted],

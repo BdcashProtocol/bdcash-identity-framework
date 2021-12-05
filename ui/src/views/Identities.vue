@@ -23,7 +23,7 @@
               {{ address.substr(0,6) }}...{{ address.substr(-6) }}<br>
           </div>
           <div v-for="id in linked" v-bind:key="id.refID">
-              <a :href="'https://proof.scryptachain.org/#/uuid/' + id.uuid" target="_blank">
+              <a :href="'https://proof.bdcashprotocol.com/#/uuid/' + id.uuid" target="_blank">
                 <div style="border:1px solid #ccc; text-align:left; color:#000; border-radius:5px; margin-top:20px; font-size:12px; padding:15px">
                     <img :src = "'/' + id.refID.toLowerCase() + '.png'" style="float:left; height:75px; margin-right:10px;" />
                     <strong>{{ id.refID }}</strong>
@@ -62,7 +62,7 @@
             {{ address.substr(0,6) }}...{{ address.substr(-6) }}<br>
         </div>
         <div v-for="id in identities" style="position:relative" v-bind:key="id.refID">
-            <a :href="'https://proof.scryptachain.org/#/uuid/' + id.uuid" target="_blank">
+            <a :href="'https://proof.bdcashprotocol.com/#/uuid/' + id.uuid" target="_blank">
               <div style="border:1px solid #ccc; text-align:left; color:#000; border-radius:5px; margin-top:20px; font-size:12px; padding:15px">
                   <img :src = "'/' + id.refID.toLowerCase() + '.png'" style="float:left; height:55px; margin-right:10px;" />
                   <strong>{{ id.refID }}</strong><br>
@@ -84,7 +84,7 @@
 </template>
 
 <script>
-const ScryptaCore = require('@bdcash-protocol/core')
+const BDCashCore = require('@bdcash-protocol/core')
 const axios = require('axios')
 const QRious = require('qrious')
 var zlib = require('zlib')
@@ -93,7 +93,7 @@ export default {
   name: 'Home',
   data() {
     return {
-        scrypta: new ScryptaCore(true),
+        bdcash: new BDCashCore(true),
         backendURL: '',
         address: '',
         file: '',
@@ -157,7 +157,7 @@ export default {
           }
         },
         async checkUser(){
-          let user = await this.scrypta.returnDefaultIdentity()
+          let user = await this.bdcash.returnDefaultIdentity()
           if (user) {
             let split = user.split(':')
             this.address = split[0];
@@ -167,10 +167,10 @@ export default {
         },
         async checkIdentities(){
           const app = this
-          let transactions = await app.scrypta.get('/transactions/' + app.address)
+          let transactions = await app.bdcash.get('/transactions/' + app.address)
           let last = transactions.data.length - 1
           app.first_tx = transactions.data[last]
-          app.scrypta.post('/read', {
+          app.bdcash.post('/read', {
             protocol: 'I://',
             address: app.address
           }).then(async result => {
@@ -195,19 +195,19 @@ export default {
             },
             trapFocus: true,
             onConfirm: async password => {
-              let sid = await app.scrypta.readKey(password, app.encrypted_wallet);
+              let sid = await app.bdcash.readKey(password, app.encrypted_wallet);
               if(sid !== false){
                 if(sid.identity !== undefined){
                   app.linked = []
                   for(let k in sid.identity){
                     let id = sid.identity[k]
                     //PRIVATE VERIFICATION
-                    let signed = await app.scrypta.signMessage(sid.prv, JSON.stringify(id))
+                    let signed = await app.bdcash.signMessage(sid.prv, JSON.stringify(id))
                     for(let y in app.identities){
                       let idB = app.identities[y]
                       if(idB.data.signature === signed.signature){
                         //PUBLIC VERIFICATION
-                        let verify = await app.scrypta.verifyMessage(sid.key, idB.data.signature, JSON.stringify(id))
+                        let verify = await app.bdcash.verifyMessage(sid.key, idB.data.signature, JSON.stringify(id))
                         if(verify !== false && verify.address === app.address){
                           idB.identity = id.identity
                           app.linked.push(idB)
@@ -223,7 +223,7 @@ export default {
                   var find = '/'
                   var re = new RegExp(find, 'g')
                   compressed = compressed.replace(re, '*')
-                  app.shareURL = 'https://me.scrypta.id/#/share/' + compressed
+                  app.shareURL = 'https://me.bdcash.id/#/share/' + compressed
                   app.public_qrcode = compressed
                   
                 }else{
@@ -265,9 +265,9 @@ export default {
             },
             trapFocus: true,
             onConfirm: async password => {
-              let sid = await app.scrypta.readKey(password, app.encrypted_wallet);
+              let sid = await app.bdcash.readKey(password, app.encrypted_wallet);
               if(sid !== false){
-                let invalidated = await app.scrypta.invalidate(app.encrypted_wallet, password, uuid)
+                let invalidated = await app.bdcash.invalidate(app.encrypted_wallet, password, uuid)
                 if(invalidated !== false){
                   app.$buefy.toast.open({
                     message: "Identity invalidated correctly, please wait at least 2 minutes.",
