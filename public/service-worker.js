@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.3c21bf8cf388c1a1423f39a96b096a50.js"
+  "/precache-manifest.00c94abe0093dcd0e392862a9066571d.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "bdcash-identity-framework-ui"});
+workbox.core.setCacheNameDetails({prefix: "bdcash-id-framework-ui"});
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
