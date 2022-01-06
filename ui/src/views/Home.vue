@@ -324,7 +324,7 @@ export default {
           const app = this
           let balance = await app.bdcash.get('/balance/' + app.address)
           app.isWriting = true
-          if(balance.balance > 0.001){
+          if(balance.balance > 1){
             app.$buefy.dialog.prompt({
               message: `Enter wallet password`,
               inputAttrs: {
@@ -374,7 +374,7 @@ export default {
                                 var find = '/'
                                 var re = new RegExp(find, 'g')
                                 compressed = compressed.replace(re, '*')
-                                app.shareURL = 'https://me.bdcash.id/#/share/' + compressed
+                                app.shareURL = 'https://id.bdcashprotocol.com/#/share/' + compressed
                                 app.public_qrcode = compressed
                               },30)
                             }else{
@@ -405,7 +405,7 @@ export default {
             })
           }else{
             app.$buefy.toast.open({
-              message: "You need at least 0.001 BDCASH in your wallet!",
+              message: "You need at least 1 BDCASH in your wallet!",
               type: "is-danger"
             })
           }

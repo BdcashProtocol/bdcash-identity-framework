@@ -1,6 +1,6 @@
 {
   "name": "bdcash-id-framework-ui",
-  "version": "2.0.8",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@bdcash-protocol/core": "^1.0.5",
+    "@bdcash-protocol/core": "^1.1.0",
     "axios": "^0.21.2",
     "buefy": "^0.9.3",
     "core-js": "^3.6.5",

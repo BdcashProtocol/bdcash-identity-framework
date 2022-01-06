@@ -223,7 +223,7 @@ export default {
                   var find = '/'
                   var re = new RegExp(find, 'g')
                   compressed = compressed.replace(re, '*')
-                  app.shareURL = 'https://me.bdcash.id/#/share/' + compressed
+                  app.shareURL = 'https://id.bdcashprotocol.com/#/share/' + compressed
                   app.public_qrcode = compressed
                   
                 }else{

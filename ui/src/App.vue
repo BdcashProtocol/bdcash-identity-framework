@@ -25,11 +25,11 @@
         </template>
       </b-navbar>
       <router-view />
-      <hr />BDCash Identity Framework is
+      <hr />BDCash Identity App is
       <a
         href="https://github.com/BdcashProtocol/bdcash-identity-framework"
         target="_blank"
-      >open-source</a> powered by
+      >open-source</a> powered by team
       <a href="https://bdcashprotocol.com" target="_blank">BDCash Protocol</a>.
       <br />
       <br />
@@ -58,7 +58,7 @@
           <div class="container" id="create" style="margin-top:50px;">
             <div class="card">
               <div style="padding: 50px 20px;">
-                <img src="/logo.png" whidth="300" height="300"><br>
+                <img src="/logo.png" lass="img-responsive img-fluid"><br>
                 <h1 class="title is-1">Identity Digital BDCash</h1><br><br>
                 <p>
                   Identity Digital BDCash is an SSI (Self Sovereign Identity) service which enable you to safely store and share your digital identity with third parties.<br>This service will never store your personal informations so please download your authenticated .sid files and store them safely.
@@ -122,7 +122,7 @@
           <footer v-if="!isCreating && !isUpdating" class="modal-card-foot">
             <button
               v-if="!wallet"
-              class="button is-primary"
+              class="button is-warning"
               style="width:100%"
               v-on:click="createUser"
             >CREATE</button>
@@ -313,7 +313,7 @@ export default {
   }
 
   #nav a.router-link-exact-active {
-    color: #d6be33;
+    color: #ecb00b;
   }
   @media screen and (max-width: 1024px){
     .login-btn{
